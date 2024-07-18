@@ -14,6 +14,13 @@ namespace Cashly.Server.Controllers
             _authService = authService;
         }
 
+        [HttpGet("IsUsernameTaken")]
+        public async Task<ActionResult<bool>> IsUsernameTaken(string username)
+        {
+            var isTaken = await _authService.UserExists(username);
+            return Ok(isTaken);
+        }
+
         [HttpPost("register")]
         public async Task<ActionResult<ServiceResponse<int>>> Register(UserRegister request)
         {
